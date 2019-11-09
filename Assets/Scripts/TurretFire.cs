@@ -6,19 +6,23 @@ using UnityEngine;
 public class TurretFire : MonoBehaviour
 {
     // Start is called before the first frame update
-    GameObject Emitter;
+    public float delay = 2f;
+
+    float countdown;
+    bool hasFinished=false;
+
     void Start()
     {
-        Emitter = GameObject.Find("TurretOutput");
+        countdown = delay;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        countdown -= Time.deltaTime;
+        if(countdown<= 0f && !hasFinished)
         {
-            //Blaster Bolt
-
+            Destroy(gameObject);
         }
     }
 }
