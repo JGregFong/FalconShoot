@@ -14,6 +14,7 @@ public class TurretLook : MonoBehaviour
     public GameObject bolt;
     private float nextTimeToFire = 0f;
     public float fireRate = 1.3f;
+    private AudioSource mAudioSrc;
 
     private void Start()
     {
@@ -22,6 +23,7 @@ public class TurretLook : MonoBehaviour
         Emitter = GameObject.Find("TurretOutput");
         targetDirection = new Vector3();
         Cursor.visible = false;
+        mAudioSrc = GetComponent<AudioSource>();
     }
 
 
@@ -41,6 +43,7 @@ public class TurretLook : MonoBehaviour
 
     private void FireBolt()
     {
+        mAudioSrc.Play();
         GameObject blasterBolt = Instantiate(bolt, Emitter.transform.position, Emitter.transform.rotation);
         Rigidbody rb = blasterBolt.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 100, ForceMode.VelocityChange);
