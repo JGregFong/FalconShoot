@@ -6,6 +6,8 @@ public class TurretLook : MonoBehaviour
 {
     //public Transform Target;
     public float RotationSpeed;
+    public float boltSpeed = 20;
+    public float YLookOffset = 30f;
     private Quaternion lookRotation;
     private Vector3 targetDirection;
     GameObject Emitter;
@@ -24,6 +26,7 @@ public class TurretLook : MonoBehaviour
         targetDirection = new Vector3();
         Cursor.visible = false;
         mAudioSrc = GetComponent<AudioSource>();
+        
     }
 
 
@@ -34,7 +37,7 @@ public class TurretLook : MonoBehaviour
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
         {
             //Instantiate
-            nextTimeToFire = Time.time + 1f / fireRate;
+            nextTimeToFire = Time.time + 1f/fireRate;
             FireBolt();
             
         }
@@ -46,7 +49,7 @@ public class TurretLook : MonoBehaviour
         mAudioSrc.Play();
         GameObject blasterBolt = Instantiate(bolt, Emitter.transform.position, Emitter.transform.rotation);
         Rigidbody rb = blasterBolt.GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 100, ForceMode.VelocityChange);
+        rb.AddForce(transform.forward * boltSpeed, ForceMode.VelocityChange);
     }
 
     private void OnGUI()
@@ -56,7 +59,8 @@ public class TurretLook : MonoBehaviour
 
         mousePosition.x = currentEvent.mousePosition.x;
         mousePosition.y = Cam.pixelHeight-currentEvent.mousePosition.y;
-        targetDirection = Cam.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y-30, 1000));
+        //Y-Position is offset
+        targetDirection = Cam.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y-YLookOffset, 1000));
         //lookRotation = Quaternion.LookRotation(new Vector3(0, 0, 20));
         GUILayout.BeginArea(new Rect(10, 10, 1280, 720));
         GUILayout.EndArea();

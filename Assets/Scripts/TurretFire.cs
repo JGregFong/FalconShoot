@@ -6,7 +6,7 @@ using UnityEngine;
 public class TurretFire : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float delay = 2f;
+    public float DisappearDelay = 2f;
 
     float countdown;
     bool hasFinished=false;
@@ -14,7 +14,7 @@ public class TurretFire : MonoBehaviour
 
     void Start()
     {
-        countdown = delay;
+        countdown = DisappearDelay;
     }
 
     // Update is called once per frame
